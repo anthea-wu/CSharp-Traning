@@ -9,9 +9,9 @@ namespace CSharp_Traning.Models
     {
         private readonly HttpClient _httpClient;
 
-        public GeoIpServer(IHttpClientFactory factory)
+        public GeoIpServer(IHttpClientFactory httpClient)
         {
-            _httpClient = factory.CreateClient();
+            _httpClient = httpClient.CreateClient();
         }
 
         public string GetCurrentIP()
