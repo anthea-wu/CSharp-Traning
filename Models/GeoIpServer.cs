@@ -1,19 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using CSharp_Traning.Models;
 
 namespace CSharp_Traning.Models
 {
-    internal class GeoIpServer : IGeoIpServer
+    internal partial class GeoIpServer : IGeoIpServer
     {
         public string GetCurrentIP()
         {
             var httpClient = new HttpClient();
             var response = httpClient.GetAsync("https://api.ipify.org?format=json").Result;
             response.EnsureSuccessStatusCode();
-            var ip = JsonSerializer.Deserialize<CurrentIp>(response.Content.ReadAsByteArrayAsync().Result).Ip;
+            var ip = JsonSerializer.Deserialize<CurrentIp>(response.Content.ReadAsStringAsync().Result).Ip;
             return ip;
         }
 
@@ -24,14 +23,8 @@ namespace CSharp_Traning.Models
             var stringContent = new StringContent(JsonSerializer.Serialize(data));
             var response = httpClient.PostAsync("http://ip-api.com/batch", stringContent).Result;
             response.EnsureSuccessStatusCode();
-            var countryCod = JsonSerializer.Deserialize<List<CurrentCountryCode>>(response.Content.ReadAsByteArrayAsync().Result)[0].CountryCode;
+            var countryCod = JsonSerializer.Deserialize<List<CurrentCountryCode>>(response.Content.ReadAsStringAsync().Result)[0].CountryCode;
             return countryCod;
-        }
-
-        internal class CurrentCountryCode
-        {
-            [JsonPropertyName("countryCode")]
-            public string CountryCode { get; set; }
         }
     }
 }
