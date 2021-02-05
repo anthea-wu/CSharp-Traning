@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Text.Json;
-using CSharp_Traning.Models;
 
 namespace CSharp_Traning.Models
 {
@@ -32,12 +31,14 @@ namespace CSharp_Traning.Models
             return countryCod;
         }
         
-        public object GetCurrentPlace()
+        public CurrentPlace GetCurrentPlace()
         {
-            var IP = GetCurrentIp();
-            var CountryCode = GetCurrentCountry(IP);
-            var CurrentPlace = new {IP, CountryCode};
-            return CurrentPlace;
+            var place = new CurrentPlace();
+            var ip = GetCurrentIp();
+            var countryCode = GetCurrentCountry(ip);
+            place.Ip = ip;
+            place.CountryCode = countryCode;
+            return place;
         }
     }
 }

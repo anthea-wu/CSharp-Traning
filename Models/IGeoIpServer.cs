@@ -2,6 +2,6 @@
 {
     public interface IGeoIpServer
     {
-        object GetCurrentPlace();
+        CurrentPlace GetCurrentPlace();
     }
 }
