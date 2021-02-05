@@ -18,9 +18,8 @@ namespace CSharp_Traning.Controllers
         // GET
         public IActionResult Index()
         {
-            var IP = _geoIpServer.GetCurrentIP();
-            var CountryCode = _geoIpServer.GetCurrentCountry(IP);
-            return Ok(new {IP, CountryCode});
+            var CurrentPlace = _geoIpServer.GetCurrentPlace();
+            return Ok(CurrentPlace);
         }
     }
 }

@@ -2,7 +2,6 @@
 {
     public interface IGeoIpServer
     {
-        string GetCurrentIP();
-        string GetCurrentCountry(string ip);
+        object GetCurrentPlace();
     }
 }
