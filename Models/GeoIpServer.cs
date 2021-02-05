@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System.Collections.Generic;
+using System.Net.Http;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using CSharp_Traning.Models;
@@ -14,6 +15,23 @@ namespace CSharp_Traning.Models
             response.EnsureSuccessStatusCode();
             var ip = JsonSerializer.Deserialize<CurrentIp>(response.Content.ReadAsByteArrayAsync().Result).Ip;
             return ip;
+        }
+
+        public static string GetCurrentCountry(string ip)
+        {
+            var httpClient = new HttpClient();
+            var data = new object[] { new {query=ip, fields="countryCode"} };
+            var stringContent = new StringContent(JsonSerializer.Serialize(data));
+            var response = httpClient.PostAsync("http://ip-api.com/batch", stringContent).Result;
+            response.EnsureSuccessStatusCode();
+            var countryCod = JsonSerializer.Deserialize<List<CurrentCountryCode>>(response.Content.ReadAsByteArrayAsync().Result)[0].CountryCode;
+            return countryCod;
+        }
+
+        internal class CurrentCountryCode
+        {
+            [JsonPropertyName("countryCode")]
+            public string CountryCode { get; set; }
         }
     }
 }

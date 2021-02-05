@@ -12,6 +12,7 @@ namespace CSharp_Traning.Controllers
         public IActionResult Index()
         {
             var IP = GeoIpServer.GetCurrentIP();
+            var CountryCode = GeoIpServer.GetCurrentCountry(IP);
             return Ok(new {IP, CountryCode = "TW"});
         }
     }
