@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using CSharp_Traning.Models;
 
 
 namespace CSharp_Traning.Controllers
@@ -7,11 +8,11 @@ namespace CSharp_Traning.Controllers
     [Route("api/{controller}")]
     public class WhereAmIController : Controller
     {
-        
         // GET
         public IActionResult Index()
         {
-            return Ok(new {IP = "1.1.1.1", CountryCode = "TW"});
+            var IP = GeoIpServer.GetCurrentIP();
+            return Ok(new {IP, CountryCode = "TW"});
         }
     }
 }
