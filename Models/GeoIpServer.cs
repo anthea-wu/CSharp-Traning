@@ -6,9 +6,9 @@ using CSharp_Traning.Models;
 
 namespace CSharp_Traning.Models
 {
-    internal class GeoIpServer
+    internal class GeoIpServer : IGeoIpServer
     {
-        public static string GetCurrentIP()
+        public string GetCurrentIP()
         {
             var httpClient = new HttpClient();
             var response = httpClient.GetAsync("https://api.ipify.org?format=json").Result;
@@ -17,7 +17,7 @@ namespace CSharp_Traning.Models
             return ip;
         }
 
-        public static string GetCurrentCountry(string ip)
+        public string GetCurrentCountry(string ip)
         {
             var httpClient = new HttpClient();
             var data = new object[] { new {query=ip, fields="countryCode"} };
