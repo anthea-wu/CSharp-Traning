@@ -27,6 +27,7 @@ namespace CSharp_Traning
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddHttpClient<IGeoIpServer, GeoIpServer>();
             services.AddTransient<IGeoIpServer, GeoIpServer>();
         }
 
